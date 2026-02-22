@@ -2,7 +2,7 @@
 
 namespace App\Twig;
 
-use App\Enums\NoticeEnum;
+use App\Enum\NoticeEnum;
 use Twig\TwigFunction;
 
 class HelperExtensions extends \Twig\Extension\AbstractExtension

@@ -3,7 +3,7 @@
 namespace App\Controller\Auth;
 
 use App\Entity\User;
-use App\Enums\NoticeEnum;
+use App\Enum\NoticeEnum;
 use App\Form\RegistrationFormType;
 use App\Service\Auth\AuthService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -33,7 +33,6 @@ class AuthController extends AbstractController
             if (empty($user)) {
                 $this->addFlash(NoticeEnum::ERROR->value, 'An error occurred while creating your account. Please try again later.');
 
-                $this->addFlash(NoticeEnum::DEFAULT->value, 'just a test... message aaaaaa');
                 return $this->redirectToRoute('app_auth_register');
             }
 

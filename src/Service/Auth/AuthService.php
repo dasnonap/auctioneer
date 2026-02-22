@@ -23,7 +23,7 @@ class AuthService
             $this->entityManager->persist($user);
             $this->entityManager->flush();
         } catch (\Throwable $th) {
-            $this->logger->error('Error while registering user: ' . $th->getMessage());
+            $this->logger->error('Error while registering user: ' . $th->getMessage(), ['exception' => $th]);
 
             return null;
         }
