@@ -17,8 +17,6 @@ class AuthController extends AbstractController
     #[Route('/register', name: 'app_auth_register', methods: ['GET'])]
     public function register(Request $request)
     {
-
-
         dd('aloha');
     }
 
