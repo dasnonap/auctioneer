@@ -1,3 +1,4 @@
 import "./app.css";
 
-console.log("Happy coding !!");
+// js files in the js directory will be automatically imported
+import.meta.glob("./js/**/*.js", { eager: true });

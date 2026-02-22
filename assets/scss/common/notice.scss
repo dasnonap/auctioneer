@@ -1,0 +1,13 @@
+.notice {
+    opacity: 0;
+    visibility: hidden;
+    transition: .3s ease-in-out;
+    transform: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+    transform: translateX(100%);
+    
+    &.visible {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(0);
+    }
+}

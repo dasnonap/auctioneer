@@ -1,0 +1,39 @@
+{# read and display all flash messages with Tailwind styling #}
+{% set noticeClasses = notice_classes() %}
+{% set classTypes = {
+    (noticeClasses.SUCCESS): 'bg-green-50 border border-green-200 text-green-800',
+    (noticeClasses.ERROR): 'bg-red-50 border border-red-200 text-red-800',
+    (noticeClasses.DEFAULT): 'bg-blue-50 border border-blue-200 text-blue-800'
+} %}
+<div class="fixed top-6 right-6 z-50 flex flex-col gap-3 pointer-events-none">
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="
+                notice
+                pointer-events-auto
+                animate-in fade-in slide-in-from-right-4 duration-300
+                {{ classTypes[label] }}
+                rounded-lg px-4 py-3 shadow-md
+                flex items-start gap-3 max-w-sm
+                js-notice
+                visible
+            ">
+                <!-- Icon -->
+                <div class="flex-shrink-0 mt-0.5">
+                    {% include 'common/icons/svg/notice/' ~ label ~ '.svg' %}
+                </div>
+
+                <!-- Content -->
+                <div class="flex-1">
+                    <p class="text-sm font-medium">{{ message }}</p>
+                </div>
+
+                <!-- Close Button -->
+                <button type="button" class="flex-shrink-0 text-gray-400 hover:text-gray-600 transition-colors js-notice-close">
+                    <span class="sr-only">Close</span>
+                    {% include 'common/icons/svg/check.svg' %}
+                </button>
+            </div>
+        {% endfor %}
+    {% endfor %}
+</div>

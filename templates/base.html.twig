@@ -8,19 +8,19 @@
         {% block stylesheets %}
             {{ vite_entry_link_tags('app') }}
         {% endblock %}
-        
-        <div class="flex justify-center pt-10">
-            <h2 class="text-3xl font-bold underline">Auctioneer</h2>
-        </div>
     </head>
     
-    <body class="bg-gray-700 text-white min-h-screen flex flex-col">
+    <body class="bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white min-h-screen flex flex-col">
         {# Define the header block, could be changed if extended #}
         {% block header %}
             {{ include('common/header.html.twig') }}
         {% endblock %}
 
-        <main class="max-w-6xl px-4 py-8">
+        <main class="max-w-6xl mx-auto px-4 py-8">
+            {% block flash_messages %}
+                {{ include('common/notices.html.twig') }}
+            {% endblock %}
+            
             {% block body %}{% endblock %}
         </main>
 

@@ -1,0 +1,81 @@
+{% extends 'layout/auth.html.twig' %}
+
+{% block title %}Register - Auctioneer{% endblock %}
+
+{% block auth_title %}Create Account{% endblock %}
+{% block auth_subtitle %}Join our community today{% endblock %}
+
+{% block auth_form %}
+    <form method="post">      
+        {{ form_errors(form, {'attr': {'class': 'text-red-500 text-sm'}}) }}
+
+        {{ form_start(form, {'attr': {'class': 'space-y-4 '}}) }}
+            <div class="mb-4">
+                <label 
+                    class="block text-gray-700 text-sm font-medium mb-2">
+                    {{ form_label(form.email) }}
+                </label>
+
+                <input 
+                    name="{{ field_name(form.email) }}"
+                    id="{{ field_id(form.email) }}"
+                    value="{{ field_value(form.email) }}"
+                    type="email" 
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 text-black" 
+                    required
+                >
+
+                <div class="mt-1 flex items-center justify-between mb-2 text-red-500 text-sm">
+                    {{ form_errors(form.email) }}
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <label 
+                    class="block text-gray-700 text-sm font-medium mb-2">
+                    {{ form_label(form.username) }}
+                </label>
+
+                <input 
+                    name="{{ field_name(form.username) }}"
+                    id="{{ field_id(form.username) }}"
+                    value="{{ field_value(form.username) }}"
+                    type="text" 
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 text-black" 
+                    required
+                >
+
+                <div class="mt-1 flex items-center justify-between mb-2 text-red-500 text-sm">
+                    {{ form_errors(form.username) }}
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <label 
+                    class="block text-gray-700 text-sm font-medium mb-2">
+                    {{ form_label(form.password) }}
+                </label>
+
+                <input 
+                    name="{{ field_name(form.password) }}"
+                    id="{{ field_id(form.password) }}"
+                    type="password" 
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 text-black" 
+                    required
+                >
+
+                <div class="mt-flex items-center justify-between mb-2 text-red-500 text-sm">
+                    {{ form_errors(form.password) }}
+                </div>
+            </div>
+            
+            <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700">Register</button>
+        {{ form_end(form) }}
+    </form>
+{% endblock %}
+
+{% block auth_footer %}
+    <p class="text-sm text-gray-600">
+        Already have an account? <a href="{{ path('app_auth_login') }}" class="text-blue-600 hover:text-blue-700 font-medium">Sign in</a>
+    </p>
+{% endblock %}

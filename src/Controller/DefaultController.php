@@ -9,10 +9,11 @@ use Twig\Environment;
 
 class DefaultController extends AbstractController
 {
-    function __construct(
-        protected readonly Environment $twig,
-    ) {}
+    function __construct() {}
 
+    /**
+     * Render home page
+     */
     #[Route("/", name: "app_info_home")]
     function index(): Response
     {
