@@ -1,15 +1,28 @@
 <div class="bg-white-600">
-    <ul class="flex flex-row">
-        <li class="px-2 py-4">
-            <a href={{ path('app_auth_login') }}>
-                Login
-            </a>
-        </li>
 
-        <li class="px-2 py-4">
-            <a href={{ path('app_auth_register') }}>
-                Register
-            </a>
-        </li>
+    {% if app.user is not null  %}
+        <p>Welcome back, {{ app.user.username }}!</p>        
+    {% endif %}
+
+    <ul class="flex flex-row">
+        {% if app.user is null %}
+            <li class="px-2 py-4">
+                <a href={{ path('app_auth_login') }}>
+                    Login
+                </a>
+            </li>
+
+            <li class="px-2 py-4">
+                <a href={{ path('app_auth_register') }}>
+                    Register
+                </a>
+            </li>
+        {% else %}
+            <li class="px-2 py-4">
+                <a href={{ path('app_auth_logout') }}>
+                    Logout
+                </a>
+            </li>
+        {% endif %}
     </ul>
 </div>

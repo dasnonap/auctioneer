@@ -4,6 +4,7 @@ namespace App\Controller\Auth;
 
 use App\Entity\User;
 use App\Enum\NoticeEnum;
+use App\Form\LoginFormType;
 use App\Form\RegistrationFormType;
 use App\Service\Auth\AuthService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -36,7 +37,7 @@ class AuthController extends AbstractController
                 return $this->redirectToRoute('app_auth_register');
             }
 
-            $this->addFlash(NoticeEnum::SUCCESS->value, 'Your account has been created successfully. You can now log in.');
+            $this->addFlash(NoticeEnum::SUCCESS->value, 'Your account has been created successfully.');
 
             return $this->redirectToRoute('app_info_home');
         }
@@ -49,9 +50,37 @@ class AuthController extends AbstractController
     /**
      * Render login form
      */
-    #[Route('/login', name: 'app_auth_login', methods: ['GET'])]
+    #[Route('/login', name: 'app_auth_login', methods: ['GET', 'POST'])]
     public function login(Request $request)
     {
-        return $this->render('/pages/auth/login.html.twig');
+        $form = $this->createForm(LoginFormType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $foundUser = $this->authService->searchUserByCredentials(
+                $form->get('email')->getData(),
+                $form->get('password')->getData()
+            );
+
+            if (empty($foundUser)) {
+                $this->addFlash(NoticeEnum::ERROR->value, 'Invalid email or password.');
+
+                return $this->redirectToRoute('app_auth_login');
+            }
+
+            $this->addFlash(NoticeEnum::SUCCESS->value, 'Welcome back!');
+
+            return $this->redirectToRoute('app_info_home');
+        }
+
+        return $this->render('/pages/auth/login.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/logout', name: 'app_auth_logout', methods: ['GET'])]
+    public function logout()
+    {
+        // Symfony will intercept this route and handle the logout process automatically.
     }
 }

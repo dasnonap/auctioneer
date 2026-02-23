@@ -6,6 +6,7 @@ use App\Repository\UserRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
@@ -17,7 +18,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
     fields: ['username'],
     message: 'There is already an account with this username.'
 )]
-class User implements UserInterface
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -33,8 +34,8 @@ class User implements UserInterface
     #[ORM\Column(length: 255)]
     private ?string $password = null;
 
-    #[ORM\Column(type: Types::SMALLINT)]
-    private ?int $role = null;
+    #[ORM\Column(length: 15)]
+    private ?string $role = null;
 
     public function getId(): ?int
     {
@@ -77,12 +78,12 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getRole(): ?int
+    public function getRole(): ?string
     {
         return $this->role;
     }
 
-    public function setRole(int $role): static
+    public function setRole(string $role): static
     {
         $this->role = $role;
 
@@ -92,8 +93,8 @@ class User implements UserInterface
     public function getRoles(): array
     {
         return match ($this->role) {
-            1 => ['ROLE_ADMIN'],
-            2 => ['ROLE_USER'],
+            'ROLE_ADMIN' => ['ROLE_ADMIN'],
+            'ROLE_USER' => ['ROLE_USER'],
             default => [],
         };
     }
